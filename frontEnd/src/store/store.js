@@ -4,27 +4,29 @@ const ActionTypes = {
     ProductoEliminado: "producto-eliminado",
     ProductoSeleccionado: "producto-seleccionado",
     ProductoAgregadoModificado: "producto-agregado-o-modificado",
+    AsignarProductos: "asignar-productos"
 };
 
-export const reducer = (state, action) => {
 
+export const producto = (state = {}, action) => {
     switch (action.type) {
-        case ActionTypes.ProductoAgregado:
-            return productoAgregadoReducer(state, action);
-
-        case ActionTypes.ProductoModificado:
-            return productoModificadoReducer(state, action);
-        
-        case ActionTypes.ProductoEliminado:
-            return productoEliminadoReducer(state, action);
-
         case ActionTypes.ProductoSeleccionado:
-            return productoSeleccionadoReducer(state, action);
+            return  action.payload;
+        default:
+            return state;
+    }
+}
+
+export const productos = (state = [], action) => {
+    switch (action.type) {
+
+        case ActionTypes.AsignarProductos:
+            return  action.payload;
 
         default:
             return state;
     }
-};
+}
 
 export const productoSeleccionado = (codigo) => ({
     type: ActionTypes.ProductoSeleccionado,
@@ -111,7 +113,7 @@ function productoSeleccionadoReducer(state, action) {
         producto: state.productos.find(x => x.codigo == codigo) || {}
     };
 }
-
+/*
 function productoEliminadoReducer(state, action) {
     const codigo = action.payload.codigo;
     const productos = state.productos.filter((item) => item.codigo != codigo);
@@ -149,7 +151,7 @@ function productoAgregadoReducer(state, action) {
         ]
     };
 }
-
+*/
 export function generadorCodigoProductoBuilder(codigoInicial)
 {
     let codigo = codigoInicial;
